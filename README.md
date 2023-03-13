@@ -87,7 +87,7 @@ Cuando se activa este caso, el servidor establece el código de estado de respue
 
 ```javascript
 
-   res.statusCode = 404;
+    res.statusCode = 404;
     res.setHeader('Content-Type', 'text/plain');
     res.end('Página no encontrada');
 ```
