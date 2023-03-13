@@ -69,14 +69,25 @@ req.on('end', () => {
 En el tercer caso, si la solicitud es una petición GET a una ruta que comienza con /usuarios/, se extrae el ID del usuario de la URL, se busca en el arreglo usuarios y se responde con el objeto del usuario correspondiente en formato JSON si se encuentra, o con un código 404 (No encontrado) y un mensaje de texto si no se encuentra:
 
 ```javascript
-
 const idUsuario = req.url.split('/')[2];
-const usuario = usuarios.find(u => u.id === parseInt(idUsuario));
-if (usuario) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify(usuario));
-} else {
-  res.statusCode = 404;
-  res.setHeader('Content-Type', 'text/plain');
-  ```
+    const indiceUsuario = usuarios.findIndex(u => u.id === parseInt(idUsuario));
+    if (indiceUsuario >= 0) {
+      usuarios.splice(indiceUsuario, 1);
+      res.statusCode = 204;
+      res.end();
+    } else {
+      res.statusCode = 404;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end('Usuario no encontrado');
+    }
+```
+El último caso se ejecutará si ninguna de las condiciones anteriores se cumple, lo que significa que la solicitud HTTP no coincide con ninguna de las rutas definidas en el servidor.
+
+Cuando se activa este caso, el servidor establece el código de estado de respuesta en 404, que indica que el recurso solicitado no se pudo encontrar en el servidor. Luego, establece la cabecera de respuesta 'Content-Type' en 'text/plain', lo que indica que el cuerpo de la respuesta es un texto plano. Finalmente, envía una respuesta HTTP con el mensaje de error 'Página no encontrada' en el cuerpo de la respuesta.
+
+```javascript
+
+   res.statusCode = 404;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Página no encontrada');
+```
