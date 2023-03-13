@@ -9,7 +9,6 @@ La segunda línea define una constante llamada PORT que indica en qué número d
 ```javascript
 
 const http = require('http');
-
 const PORT = 3000;
 ```
 A continuación, se define un arreglo llamado usuarios que contiene objetos con información de cada usuario:
