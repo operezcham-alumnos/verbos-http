@@ -42,6 +42,10 @@ const server = http.createServer((req, res) => {
       res.setHeader('Content-Type', 'text/plain');
       res.end('Usuario no encontrado');
     }
+  } else if (req.method === 'GET' && req.url === '/usuarios') {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(usuarios));
   } else if (req.method === 'PUT' && req.url.startsWith('/usuarios/')) {
     const idUsuario = req.url.split('/')[2];
     let body = '';
