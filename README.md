@@ -1,5 +1,27 @@
 # Verbos HTTP
 
+Los verbos HTTP se utilizan en las solicitudes HTTP para indicar al servidor lo que se desea hacer con un recurso. Cada verbo tiene un propósito específico:
+
+*    GET: se utiliza para solicitar un recurso del servidor. Normalmente se utiliza para obtener información, como una página web o un archivo de imagen.
+
+*    POST: se utiliza para enviar datos al servidor y crear un nuevo recurso. Por ejemplo, si se desea crear un nuevo usuario en un sitio web, se puede enviar un formulario mediante una solicitud POST.
+
+*    PUT: se utiliza para actualizar un recurso existente en el servidor. Por ejemplo, si se desea actualizar la información de un usuario, se puede enviar una solicitud PUT con los nuevos datos.
+
+*    DELETE: se utiliza para eliminar un recurso existente en el servidor. Por ejemplo, si se desea eliminar un usuario de un sitio web, se puede enviar una solicitud DELETE.
+
+*    HEAD: se utiliza para solicitar información sobre un recurso sin recuperar el recurso en sí. Por ejemplo, se puede enviar una solicitud HEAD para verificar si un archivo existe antes de descargarlo.
+
+*    OPTIONS: se utiliza para obtener información sobre las opciones y capacidades de comunicación disponibles en el servidor.
+
+*    PATCH: se utiliza para actualizar parcialmente un recurso existente. A diferencia de PUT, que actualiza todo el recurso, PATCH actualiza solo las partes del recurso que se especifican en la solicitud.
+
+*    CONNECT: se utiliza para establecer una conexión de red a través de un servidor proxy.
+
+*    TRACE: se utiliza para obtener una respuesta que contiene la ruta de la solicitud. Esta opción se utiliza principalmente para la depuración.
+
+En resumen, los verbos HTTP son esenciales para la comunicación entre clientes y servidores web, y su uso adecuado es fundamental para crear aplicaciones web bien diseñadas y seguras.
+
 ## Código
 
 La primera línea hace uso del módulo interno de Node.js llamado "http". Este módulo nos permite crear y manejar un servidor HTTP, es decir, un servidor que escucha solicitudes y envía respuestas en el protocolo HTTP.
@@ -91,3 +113,36 @@ Cuando se activa este caso, el servidor establece el código de estado de respue
     res.setHeader('Content-Type', 'text/plain');
     res.end('Página no encontrada');
 ```
+
+## Siguientes pasos
+
+Para enviar un archivo HTML que se lee desde el disco usando el módulo fs, podemos hacer lo siguiente:
+
+Primero, importamos el módulo fs:
+
+```javascript
+
+const fs = require('fs');
+```
+
+Luego, leemos el contenido del archivo HTML usando fs.readFile(). Para este ejemplo, supongamos que tenemos un archivo pagina.html en el directorio raíz del proyecto:
+
+```javascript
+
+const paginaHtmlPath = './pagina.html';
+const paginaHtml = fs.readFileSync(paginaHtmlPath, 'utf8');
+```
+
+Después, agregamos una nueva condición en el bloque if-else para manejar solicitudes GET a la ruta /archivo:
+
+
+```javascript
+
+else if (req.method === 'GET' && req.url === '/archivo') {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html');
+  res.end(paginaHtml);
+}
+```
+
+En esta nueva condición, establecemos el código de estado 200, indicando que la solicitud se ha completado con éxito, establecemos el tipo de contenido como text/html, ya que estamos enviando un archivo HTML, y finalmente enviamos el contenido del archivo HTML usando res.end().
