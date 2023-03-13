@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Usuarios</title>
+</head>
+<body>
+  <h1>Usuarios</h1>
+  <ul id="usuarios">
+    <!-- Aquí se mostrarán los usuarios obtenidos del servidor -->
+  </ul>
+  <form id="formulario-crear">
+    <h2>Agregar usuario</h2>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre">
+    <button type="submit">Agregar</button>
+  </form>
+  <form id="formulario-borrar">
+    <h2>Eliminar usuario</h2>
+    <label for="id-borrar">ID:</label>
+    <input type="text" id="id-borrar" name="id-borrar">
+    <button type="submit">Eliminar</button>
+  </form>
+  <script>
+    const usuarios = document.getElementById('usuarios');
+    const formularioCrear = document.getElementById('formulario-crear');
+    const formularioBorrar = document.getElementById('formulario-borrar');
+    
+    // Función para obtener los usuarios del servidor y mostrarlos en la página
+    function obtenerUsuarios() {
+      fetch('/usuarios')
+        .then(response => response.json())
+        .then(data => {
+          usuarios.innerHTML = '';
+          data.forEach(usuario => {
+            const li = document.createElement('li');
+            li.innerText = `${usuario.id} - ${usuario.nombre}`;
+            usuarios.appendChild(li);
+          });
+        });
+    }
+    
+    // Función para crear un nuevo usuario
+    function crearUsuario(event) {
+      event.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      fetch('/usuarios', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nombre })
+      })
+        .then(response => response.json())
+        .then(data => {
+          obtenerUsuarios();
+          formularioCrear.reset();
+        });
+    }
+    
+    // Función para eliminar un usuario existente
+    function borrarUsuario(event) {
+      event.preventDefault();
+      const id = document.getElementById('id-borrar').value;
+      fetch(`/usuarios/${id}`, {
+        method: 'DELETE'
+      })
+        .then(() => {
+          obtenerUsuarios();
+          formularioBorrar.reset();
+        });
+    }
+    
+    // Obtener los usuarios del servidor al cargar la página
+    obtenerUsuarios();
+    
+    // Agregar los manejadores de eventos a los formularios
+    formularioCrear.addEventListener('submit', crearUsuario);
+    formularioBorrar.addEventListener('submit', borrarUsuario);
+  </script>
+</body>
+</html>
