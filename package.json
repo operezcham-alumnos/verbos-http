@@ -1,0 +1,12 @@
+{
+  "name": "verbos-http",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "operezcham",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
