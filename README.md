@@ -2,8 +2,11 @@
 
 ## Código
 
-Primero, este bloque de código requiere el módulo http de Node.js y define una constante PORT con el número de puerto en el que se ejecutará el servidor:
+La primera línea hace uso del módulo interno de Node.js llamado "http". Este módulo nos permite crear y manejar un servidor HTTP, es decir, un servidor que escucha solicitudes y envía respuestas en el protocolo HTTP.
 
+La segunda línea define una constante llamada PORT que indica en qué número de puerto será ejecutado el servidor. El puerto es un número que se utiliza para identificar un proceso de red en una máquina. En el contexto de un servidor web, el número de puerto indica en qué puerto el servidor escuchará las solicitudes HTTP entrantes. Por convención, el puerto 80 es el puerto por defecto para los servidores HTTP, pero en este caso se ha elegido el puerto 3000.
+
+En resumen, estas dos líneas iniciales están importando el módulo http y definiendo el número de puerto en el que se ejecutará el servidor HTTP que se creará más adelante.
 ```javascript
 
 const http = require('http');
