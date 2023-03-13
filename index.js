@@ -2,6 +2,8 @@ const http = require('http');
 
 const PORT = 3000;
 
+const fs = require('fs');
+
 const usuarios = [
   { id: 1, nombre: 'Juan' },
   { id: 2, nombre: 'María' },
@@ -10,9 +12,11 @@ const usuarios = [
 
 const server = http.createServer((req, res) => {
   if (req.method === 'GET' && req.url === '/') {
+    const paginaHtmlPath = './pagina.html';
+    const paginaHtml = fs.readFileSync(paginaHtmlPath, 'utf8');
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
-    res.end('<h1>Hola</h1> 🕢<span id="tiempo"></span> <script>const fecha= new Date() const reloj= document.getElementById("tiempo")  reloj.innerText=fecha setInterval(actualizarReloj,1000)</script>');
+    res.end(paginaHtml);
   } else if (req.method === 'POST' && req.url === '/usuarios') {
     let body = '';
     req.on('data', chunk => {
