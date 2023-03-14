@@ -21,10 +21,19 @@
     <input type="text" id="id-borrar" name="id-borrar">
     <button type="submit">Eliminar</button>
   </form>
+  <form id="formulario-actualizar">
+    <h2>Actualizar usuario</h2>
+    <label for="id-actualizar">ID:</label>
+    <input type="text" id="id-actualizar" name="id-actualizar">
+    <label for="actualizarNombre">Nombre:</label>
+    <input type="text" id="actualizarNombre" name="actualizarNombre">
+    <button type="submit">Actualizar</button>
+  </form>
   <script>
     const usuarios = document.getElementById('usuarios');
     const formularioCrear = document.getElementById('formulario-crear');
     const formularioBorrar = document.getElementById('formulario-borrar');
+    const formularioActualizar = document.getElementById('formulario-actualizar');
     
     // Función para obtener los usuarios del servidor y mostrarlos en la página
     function obtenerUsuarios() {
@@ -57,6 +66,27 @@
           formularioCrear.reset();
         });
     }
+    
+    
+     // Función para actualizar un usuario existente
+    function actualizarUsuario(event) {
+      event.preventDefault();
+      const id = document.getElementById('id-actualizar').value;
+      const nombre = document.getElementById('actualizarNombre').value;
+      fetch(`/usuarios/${id}`, {
+        method: 'PUT'
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nombre })
+      })
+        .then(response => response.json())
+        .then(data => {
+          obtenerUsuarios();
+          formularioActualizar.reset();
+        });
+    }
+    
     
     // Función para eliminar un usuario existente
     function borrarUsuario(event) {
