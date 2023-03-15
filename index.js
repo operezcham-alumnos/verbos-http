@@ -24,7 +24,7 @@ const server = http.createServer((req, res) => {
     });
     req.on('end', () => {
       const nuevoUsuario = JSON.parse(body);
-      nuevoUsuario.id = usuarios[usuarios.length] + 1;
+      nuevoUsuario.id = usuarios[usuarios.length].id + 1;
       usuarios.push(nuevoUsuario);
       res.statusCode = 201;
       res.setHeader('Content-Type', 'application/json');
