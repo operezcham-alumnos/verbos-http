@@ -74,7 +74,7 @@
       const id = document.getElementById('id-actualizar').value;
       const nombre = document.getElementById('actualizarNombre').value;
       fetch(`/usuarios/${id}`, {
-        method: 'PUT'
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
